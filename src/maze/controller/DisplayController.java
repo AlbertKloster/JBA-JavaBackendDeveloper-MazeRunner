@@ -1,6 +1,6 @@
 package maze.controller;
 
-import maze.MazeHandler;
+import maze.model.MazeHandler;
 
 public class DisplayController {
     public static void run() {

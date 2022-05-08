@@ -1,4 +1,7 @@
-package maze;
+package maze.view;
+
+import maze.model.Index;
+import maze.model.MazeHandler;
 
 import java.io.File;
 import java.io.FileNotFoundException;

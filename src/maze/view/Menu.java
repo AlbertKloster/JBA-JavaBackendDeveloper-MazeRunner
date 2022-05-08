@@ -1,4 +1,4 @@
-package maze;
+package maze.view;
 
 import java.util.HashMap;
 import java.util.List;

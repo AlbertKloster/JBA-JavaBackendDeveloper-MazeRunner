@@ -1,9 +1,11 @@
-package maze;
+package maze.model;
+
+import maze.enums.Move;
 
 import java.util.*;
 import java.util.stream.Collectors;
 
-import static maze.Move.*;
+import static maze.enums.Move.*;
 
 /**
  *  Singleton class
@@ -43,7 +45,7 @@ public class MazeHandler {
         int adjacentId = getAdjacentId(edge, startVertexId);
         searchPath(path, edge, adjacentId);
         deleteEdgeWithDoubleStartVertexId(path, startVertexId);
-        stracePath(path);
+        tracePath(path);
     }
 
     private void deleteEdgeWithDoubleStartVertexId(Deque<Edge> path, int startVertexId) {
@@ -54,9 +56,7 @@ public class MazeHandler {
             return;
 
         srcStartEdges.forEach(edge -> setNotPath(path, edge, startVertexId));
-
         destStartEdge.forEach(edge -> setNotPath(path, edge, startVertexId));
-
     }
 
     private void setNotPath(Deque<Edge> path, Edge startEdge, int startVertexId) {
@@ -68,7 +68,7 @@ public class MazeHandler {
             startEdge.setPath(false);
     }
 
-    private void stracePath(Deque<Edge> path) {
+    private void tracePath(Deque<Edge> path) {
         path.stream()
                 .filter(Edge::isPath)
                 .forEach(edge -> {
@@ -84,24 +84,22 @@ public class MazeHandler {
     }
 
     private void searchPath(Deque<Edge> path, Edge edge, int adjacentId) {
-
         edge.setVisited(true);
         path.offerLast(edge);
-
         if (hasVertexFinish(edge)) {
             edge.setPath(true);
             return;
         }
 
+        addNextEdge(path, edge, adjacentId);
+    }
+
+    private void addNextEdge(Deque<Edge> path, Edge edge, int adjacentId) {
         Edge nextEdge = findNotVisitedNotPathEdgeByAdjacentId(adjacentId);
         int nextAdjacentId;
         if (nextEdge == null) {
             Edge polledEdge = path.pollLast(); // poll the dead end
-
-            assert polledEdge != null;
-            polledEdge.setPath(false);
-            edge.setPath(false);
-
+            setCurrentAndLastEdgeAsNotPath(edge, polledEdge);
             nextAdjacentId = getAdjacentId(polledEdge, adjacentId);
 
             if (path.isEmpty())
@@ -114,17 +112,17 @@ public class MazeHandler {
                 nextAdjacentId = getAdjacentId(polledEdge, adjacentId);
             }
 
-            assert nextEdge != null;
-            nextEdge.setPath(false);
-            edge.setPath(false);
-
+            setCurrentAndLastEdgeAsNotPath(edge, nextEdge);
         } else {
             nextAdjacentId = getAdjacentId(nextEdge, adjacentId);
             edge.setPath(true);
         }
-
         searchPath(path, nextEdge, nextAdjacentId);
+    }
 
+    private void setCurrentAndLastEdgeAsNotPath(Edge currentEdge, Edge nextEdge) {
+        currentEdge.setPath(false);
+        nextEdge.setPath(false);
     }
 
     private int getAdjacentId(Edge edge, int vertexId) {

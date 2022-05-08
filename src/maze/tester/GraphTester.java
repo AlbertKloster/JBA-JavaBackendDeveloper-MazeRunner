@@ -1,4 +1,7 @@
-package maze;
+package maze.tester;
+
+import maze.model.Edge;
+import maze.model.Graph;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -139,5 +142,9 @@ public class GraphTester {
         else
             System.out.println("Test failed!");
     }
+
+//    public static void main(String[] args) {
+//        test();
+//    }
 
 }

@@ -1,8 +1,8 @@
 package maze.controller;
 
-import maze.Console;
-import maze.MazeHandler;
-import maze.Menu;
+import maze.view.Console;
+import maze.model.MazeHandler;
+import maze.view.Menu;
 
 public class MainController {
 

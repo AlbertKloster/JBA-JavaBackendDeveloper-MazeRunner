@@ -1,4 +1,4 @@
-package maze;
+package maze.enums;
 
 public enum Command {
     GENERATE,

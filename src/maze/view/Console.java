@@ -1,4 +1,6 @@
-package maze;
+package maze.view;
+
+import maze.enums.Command;
 
 import java.util.List;
 import java.util.Scanner;

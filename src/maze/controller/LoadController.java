@@ -1,7 +1,7 @@
 package maze.controller;
 
-import maze.Console;
-import maze.FileHandler;
+import maze.view.Console;
+import maze.view.FileHandler;
 
 public class LoadController {
     public static void run() {

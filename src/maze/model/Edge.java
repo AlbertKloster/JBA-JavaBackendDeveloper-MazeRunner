@@ -1,9 +1,11 @@
-package maze;
+package maze.model;
 
 import java.util.Objects;
 
 public class Edge implements Comparable<Edge> {
-    private int src, dest, weight;
+    private final int src;
+    private final int dest;
+    private final int weight;
     private boolean isPath, visited;
 
     public Edge(int src, int dest, int weight) {
@@ -26,18 +28,6 @@ public class Edge implements Comparable<Edge> {
 
     public void setVisited(boolean visited) {
         this.visited = visited;
-    }
-
-    public void setSrc(int src) {
-        this.src = src;
-    }
-
-    public void setDest(int dest) {
-        this.dest = dest;
-    }
-
-    public void setWeight(int weight) {
-        this.weight = weight;
     }
 
     public int getSrc() {
@@ -68,8 +58,6 @@ public class Edge implements Comparable<Edge> {
         return Objects.hash(Math.max(src, dest), Math.min(src, dest));
     }
 
-    // Comparator function used for
-    // sorting edgesbased on their weight
     public int compareTo(Edge compareEdge) {
         return this.weight - compareEdge.weight;
     }
